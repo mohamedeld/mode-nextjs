@@ -36,7 +36,7 @@ export async function verifyPassword(password: string, hashedPassword: string) {
 // Create a new user
 export async function createUser(email: string, password: string) {
   const hashedPassword = await hashPassword(password)
-  const id = nanoid()
+  const id = crypto.randomUUID()
 
   try {
     await db.insert(users).values({

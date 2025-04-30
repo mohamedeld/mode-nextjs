@@ -1,3 +1,4 @@
+import SignUpAuth from '@/app/components/SignUpAuth'
 import Link from 'next/link'
 
 export default function SignUpPage() {
@@ -11,7 +12,7 @@ export default function SignUpPage() {
           Create a new account
         </h2>
       </div>
-
+        <SignUpAuth/>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white dark:bg-[#1A1A1A] py-8 px-4 shadow sm:rounded-lg sm:px-10 border border-gray-100 dark:border-dark-border-subtle">
           <div className="mt-6 text-center">
