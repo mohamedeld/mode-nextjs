@@ -1,3 +1,4 @@
+import SignInAuth from '@/app/components/SignInAuth'
 import Link from 'next/link'
 
 export default function SignInPage() {
@@ -13,6 +14,7 @@ export default function SignInPage() {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <SignInAuth/>
         <div className="bg-white dark:bg-[#1A1A1A] py-8 px-4 shadow sm:rounded-lg sm:px-10 border border-gray-100 dark:border-dark-border-subtle">
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600 dark:text-gray-400">

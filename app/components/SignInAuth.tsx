@@ -1,4 +1,5 @@
 'use client'
+
 import { useActionState } from 'react'
 import { useRouter } from 'next/navigation'
 import Button from '@/app/components/ui/Button'
@@ -9,9 +10,8 @@ import {
   FormInput,
   FormError,
 } from '@/app/components/ui/Form'
-import Link from 'next/link'
 import toast from 'react-hot-toast'
-import { signUp, ActionResponse } from '@/app/actions/auth'
+import { signIn, ActionResponse } from '@/app/actions/auth'
 
 const initialState: ActionResponse = {
   success: false,
@@ -19,7 +19,7 @@ const initialState: ActionResponse = {
   errors: undefined,
 }
 
-export default function SignUpAuth() {
+export default function SignInAuth() {
   const router = useRouter()
 
   // Use useActionState hook for the form submission action
@@ -28,12 +28,13 @@ export default function SignUpAuth() {
     FormData
   >(async (prevState: ActionResponse, formData: FormData) => {
     try {
-      const result = await signUp(formData)
+      const result = await signIn(formData)
 
       // Handle successful submission
       if (result.success) {
-        toast.success('Account created successfully')
+        toast.success('Signed in successfully')
         router.push('/dashboard')
+        router.refresh()
       }
 
       return result
@@ -47,6 +48,7 @@ export default function SignUpAuth() {
   }, initialState)
 
   return (
+    //... rest of the component
     <Form action={formAction} className="space-y-6">
       {state?.message && !state.success && (
         <FormError>{state.message}</FormError>
@@ -77,7 +79,7 @@ export default function SignUpAuth() {
           id="password"
           name="password"
           type="password"
-          autoComplete="new-password"
+          autoComplete="current-password"
           required
           disabled={isPending}
           aria-describedby="password-error"
@@ -90,31 +92,12 @@ export default function SignUpAuth() {
         )}
       </FormGroup>
 
-      <FormGroup>
-        <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
-        <FormInput
-          id="confirmPassword"
-          name="confirmPassword"
-          type="password"
-          autoComplete="new-password"
-          required
-          disabled={isPending}
-          aria-describedby="confirmPassword-error"
-          className={state?.errors?.confirmPassword ? 'border-red-500' : ''}
-        />
-        {state?.errors?.confirmPassword && (
-          <p id="confirmPassword-error" className="text-sm text-red-500">
-            {state.errors.confirmPassword[0]}
-          </p>
-        )}
-      </FormGroup>
-
       <div>
         <Button type="submit" className="w-full" isLoading={isPending}>
-          Sign up
+          Sign in
         </Button>
       </div>
     </Form>
-    //...rest of the component
+    //... rest of the component
   )
 }
